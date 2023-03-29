@@ -1,0 +1,29 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+const int N = 1000010;
+int a[N], q[N];
+int main()
+{
+	int n, k;
+	int hh = 0, tt = -1;
+	cin >> n >> k;
+	for (int i = 0; i < n; i++)scanf("%d", &a[i]);
+	for (int i = 0; i < n; i++)
+	{
+		if (hh <= tt && q[hh] < i - k + 1)hh++;
+		while (hh <= tt && a[q[tt]] < a[i]) tt--;//出队
+		q[++tt] = i;//入队
+		if(i-k+1>=0)cout << a[q[hh]] << " ";
+	}
+	hh = 0;
+	tt = -1;
+	cout << endl;
+	for (int i = 0; i < n; i++)
+	{
+		if (hh <= tt && q[hh] < i - k + 1)hh++;
+		while (hh <= tt && a[q[tt]] > a[i]) tt--;//出队
+		q[++tt] = i;//入队
+		if (i - k + 1 >= 0)cout << a[q[hh]] << " ";
+	}
+}
